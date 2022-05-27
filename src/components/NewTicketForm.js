@@ -9,12 +9,22 @@ function NewTicketForm(props){  // add props as a parameter
   //event that was just fired. In this case, we just had a submit event. We can actually grab the 
   //values that came from that submit event. Specifically, we can grab the values based on their 
   //name property. We just need to call event.target.[input-field-name-goes-here].value.
+
+  //Because a function component doesn't have this as a reference like a class component, we need to directly refer to the props passed into the function component. That's why we do props.onNewTicketCreation() instead of this.onNewTicketCreation() (as we'd do if this were a class component).
+  //Remember that onNewTicketCreation() is the callback from the parent component even though it has a different name now. The handleAddingNewTicketToList method is invoked in TicketControl
   function handleNewTicketFormSubmission(event){
     event.preventDefault();
-    console.log(event.target.names.value);
-    console.log(event.target.location.value);
-    console.log(event.target.issue.value);
+    props.onNewTicketCreation({names: event.target.names.value, 
+                              location: event.target.location.value, 
+                              issue: event.target.issue.value, 
+                              id: v4()
+                              })
+                              //When we call props.onNewTicketCreation({names: names.value, location: location.value, issue: issue.value}); in the NewTicketForm component, this object is passed in as an argument to the newTicket parameter, updating the mainTicketList.
+
+
   }
+
+
 
   return(
     <React.Fragment>
