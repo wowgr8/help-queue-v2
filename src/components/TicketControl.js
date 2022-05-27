@@ -33,7 +33,6 @@ class TicketControl extends React.Component {
       <React.Fragment>
         {/* We only need to use JSX and curly braces for evaluation(of which component should be rendered) inside our return(). */}
         {currentlyVisibleState}
-        {/* we make sure that {addTicketButton} will be returned from our function. If its value is still null, there's nothing to add to the DOM. However, if it has a value, the button will be added to the DOM. */}
         <button onClick = {this.handleClick}>{buttonText}</button>
       </React.Fragment>
     );
