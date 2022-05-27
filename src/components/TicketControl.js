@@ -13,11 +13,20 @@ class TicketControl extends React.Component {
     };
   }
 
+
   handleClick = () => {
     this.setState(prevState => ({
       formVisibleOnPage: !prevState.formVisibleOnPage
     }));
   }
+
+  //Our new method is called handleAddingNewTicketToList because it does just that - handle the process of adding a new ticket in our mainTicketList. It takes a newTicket as a parameter.
+  handleAddingNewTicketToList = (newTicket) => {
+    const newMainTicketList = this.state.mainTicketList.concat(newTicket);
+    this.setState({mainTicketList: newMainTicketList,
+                  formVisibleOnPage: false});
+  }
+
 
   render(){
     {/* we create a variable called currentlyVisibleState and set it to null because we haven't determined which component should be rendered yet. */}
