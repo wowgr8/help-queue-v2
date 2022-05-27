@@ -12,8 +12,9 @@ class TicketControl extends React.Component {
   }
 
   handleClick = () => {
-    {/* we should only ever modify state in a pure React application with the setState() method. In its simplest form, setState() takes an object as an argument. The object contains any key-value pairs that our application should update. */}
-    this.setState({formVisibleOnPage: true});
+    this.setState(prevState => ({
+      formVisibleOnPage: !prevState.formVisibleOnPage
+    }));
   }
 
   render(){
