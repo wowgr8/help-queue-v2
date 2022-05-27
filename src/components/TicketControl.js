@@ -34,7 +34,7 @@ class TicketControl extends React.Component {
     let buttonText = null;
     {/*  If this.state.formVisibleOnPage is true, the currentlyVisibleState will be set to our NewTicketForm component. ELSE our currentlyVisibleState will be set to our TicketList component. */}
     if (this.state.formVisibleOnPage){
-      currentlyVisibleState = <NewTicketForm />
+      currentlyVisibleState = <NewTicketForm onNewTicketCreation = {this.handleAddingNewTicketToList}/> // will pass this.handleAddingNewTicketToList as a prop to the NewTicketForm. It will be saved in the prop onNewTicketCreation. As noted in Step 1, we prefix the prop with on. This differentiates the method in our parent component (which will actually handle the event) from the function in our child component (which is triggered when the event happens).
       buttonText = "Return to Ticket List";
     } else {
       {/* we're passing mainTicketList down to TicketList by including it as a prop and target its place in state with this.state.mainTicketList. Here we're calling it ticketList, so that's the name we'll use to access it as a prop in TicketList. */}
