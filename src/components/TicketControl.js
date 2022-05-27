@@ -7,7 +7,9 @@ class TicketControl extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      formVisibleOnPage: false
+      formVisibleOnPage: false,
+      // we're initializing mainTicketList as an empty array. We're doing this because we don't want this application to start with fake tickets. The queue should be empty until we start adding tickets via our form.
+      mainTicketList: []
     };
   }
 
@@ -26,7 +28,8 @@ class TicketControl extends React.Component {
       currentlyVisibleState = <NewTicketForm />
       buttonText = "Return to Ticket List";
     } else {
-      currentlyVisibleState = <TicketList />
+      {/* we're passing mainTicketList down to TicketList by including it as a prop and target its place in state with this.state.mainTicketList. Here we're calling it ticketList, so that's the name we'll use to access it as a prop in TicketList. */}
+      currentlyVisibleState = <TicketList ticketList = {this.state.mainTicketList} />;
       buttonText = "Add Ticket";
     }
     return(
