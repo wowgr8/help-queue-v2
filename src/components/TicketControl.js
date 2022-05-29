@@ -15,11 +15,19 @@ class TicketControl extends React.Component {
     };
   }
 
-
+  // previously, the handleClick method only toggles the visibility of our form. We also need it to set selectedTicket to null so the queue can show. But it's not quite that simple. When we click on a ticket's detail, formVisibleOnPage is set to false. We don't want to toggle it back to true! That's why we see the form for adding a ticket when we click on the button.
   handleClick = () => {
-    this.setState(prevState => ({
-      formVisibleOnPage: !prevState.formVisibleOnPage
-    }));
+    //We know that if this.state.selectedTicket isn't null then we must be on the ticket detail page. In that case, we know that formVisibleOnPage should be set to false and selectedTicket should be set to null. Otherwise, we know that we must be on the add ticket page or the ticket list page - so our else statement can just continue to toggle the formVisibleOnPage state.
+    if (this.state.selectedTicket != null) {
+      this.setState({
+        formVisibleOnPage: false,
+        selectedTicket: null,
+      });
+    } else {
+      this.setState(prevState => ({
+        formVisibleOnPage: !prevState.formVisibleOnPage
+      }));
+    }
   }
 
   //Our new method is called handleAddingNewTicketToList because it does just that - handle the process of adding a new ticket in our mainTicketList. It takes a newTicket as a parameter.
