@@ -11,7 +11,8 @@ class TicketControl extends React.Component {
       formVisibleOnPage: false,
       // we're initializing mainTicketList as an empty array. We're doing this because we don't want this application to start with fake tickets. The queue should be empty until we start adding tickets via our form.
       mainTicketList: [],
-      selectedState: null
+      selectedState: null,
+      editing: false // new code
     };
   }
 
@@ -59,6 +60,14 @@ class TicketControl extends React.Component {
     });
   }
   
+  //Next, we will add a method for showing the edit form. This method needs to go in TicketControl, which handles the local state that determines which component should show.
+  //While the console.log() isn't technically necessary, it's a good way to make sure our method is being reached.
+  handleEditClick = () => {
+    console.log("handleEditClick reached!");
+    this.setState({editing: true});
+  }
+
+
 
 
   render(){
@@ -76,7 +85,10 @@ class TicketControl extends React.Component {
       buttonText = "Return to Ticket List";
     } else {
       //* we're passing mainTicketList down to TicketList by including it as a prop and target its place in state with this.state.mainTicketList. Here we're calling it ticketList, so that's the name we'll use to access it as a prop in TicketList. */}
-      currentlyVisibleState = <TicketList ticketList = {this.state.mainTicketList} onTicketSelection = {this.handleChangingSelectedTicket} />;
+      currentlyVisibleState = <TicketList 
+        ticketList = {this.state.mainTicketList} 
+        onTicketSelection = {this.handleChangingSelectedTicket}
+        onClickingEdit = {this.handleEditClick} />;
       // Because a user will actually be clicking on the ticket in the Ticket component, we will need to pass our new handleChangingSelectedTicket method as a prop.
       buttonText = "Add Ticket";
     }
