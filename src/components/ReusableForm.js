@@ -40,5 +40,5 @@ export default ReusableForm;
 
 // If we wanted to, we could pass in props for all of the inputs in our form fields. That would be useful if our application had different forms with different fields. However, our forms will look exactly the same so we won't do that here.
 
-
+//When should we try to make reusuable components? In general, we should aim to reuse code whenever we are using it across multiple components. Forms are a common example but there are others, too, such as different kinds of welcome content, more complex headers, and so on. If there are small variations in the code like in the example above, we can use props to handle those differences.
 
