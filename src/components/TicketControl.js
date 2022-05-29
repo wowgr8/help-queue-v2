@@ -68,6 +68,19 @@ class TicketControl extends React.Component {
     this.setState({editing: true});
   }
 
+  //Note that we've broken this up into multiple lines to make it more readable.
+  // in the first half; We filter the previous version of the ticket out of the list with filter() and then add the edited version of the ticket to the list with concat(). While we could've edited the ticket directly, this is easier and doesn't involve mutating the ticket - just replace it with the new version.
+  // second half: we set the mainTicketList to be equal to the list with the updated ticket. And  we update editing to false and selectedTicket to null.
+  handleEditingTicketInList = (ticketToEdit) => {
+    const editedMainTicketList = this.state.mainTicketList
+      .filter(ticket => ticket.id !== this.state.selectedTicket.id)
+      .concat(ticketToEdit);
+    this.setState({
+        mainTicketList: editedMainTicketList,
+        editing: false,
+        selectedTicket: null
+      });
+  }
 
 
 
@@ -78,7 +91,7 @@ class TicketControl extends React.Component {
     {/*  If this.state.formVisibleOnPage is true, the currentlyVisibleState will be set to our NewTicketForm component. ELSE our currentlyVisibleState will be set to our TicketList component. */}
     if (this.state.editing ) {     //We will pass the current selectedTicket to the EditTicketForm. Since a user will have to click on a ticket to access the "Update" button, selectedTicket will already be set to the ticket we want.
       //Note that we also need to change the next conditional to an else if. If it remained an if statement, that conditional would also be met since there is a selectedTicket - which means that the TicketDetail component would show even if editing is set to true.  
-      currentlyVisibleState = <EditTicketForm ticket = {this.state.selectedTicket} />
+      currentlyVisibleState = <EditTicketForm ticket = {this.state.selectedTicket} onEditTicket = {this.handleEditingTicketInList} />
       buttonText = "Return to Ticket List";
     } else if(this.state.selectedTicket != null){
       currentlyVisibleState = <TicketDetail ticket = {this.state.selectedTicket} onClickingDelete = {this.handleDeletingTicket} />
