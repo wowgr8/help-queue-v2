@@ -1,6 +1,7 @@
 import React from "react";
 import NewTicketForm from "./NewTicketForm";
 import TicketList from "./TicketList";
+import TicketDetail from './TicketDetail';
 
 class TicketControl extends React.Component {
 
@@ -43,12 +44,18 @@ class TicketControl extends React.Component {
     let currentlyVisibleState = null;
     let buttonText = null;
     {/*  If this.state.formVisibleOnPage is true, the currentlyVisibleState will be set to our NewTicketForm component. ELSE our currentlyVisibleState will be set to our TicketList component. */}
-    if (this.state.formVisibleOnPage){
+    if(this.state.selectedTicket != null){
+      currentlyVisibleState = <TicketDetail ticket = {this.state.selectedTicket} />
+      buttonText = "Return to Ticket List";
+      // While our TicketDetail component only takes placeholder data, we will eventually be passing the value of selectedTicket as a prop.
+    } else if (this.state.formVisibleOnPage){
+      // This conditional needs to be updated to "else if."
       currentlyVisibleState = <NewTicketForm onNewTicketCreation = {this.handleAddingNewTicketToList}/> // will pass this.handleAddingNewTicketToList as a prop to the NewTicketForm. It will be saved in the prop onNewTicketCreation. As noted in Step 1, we prefix the prop with on. This differentiates the method in our parent component (which will actually handle the event) from the function in our child component (which is triggered when the event happens).
       buttonText = "Return to Ticket List";
     } else {
-      {/* we're passing mainTicketList down to TicketList by including it as a prop and target its place in state with this.state.mainTicketList. Here we're calling it ticketList, so that's the name we'll use to access it as a prop in TicketList. */}
-      currentlyVisibleState = <TicketList ticketList = {this.state.mainTicketList} />;
+      //* we're passing mainTicketList down to TicketList by including it as a prop and target its place in state with this.state.mainTicketList. Here we're calling it ticketList, so that's the name we'll use to access it as a prop in TicketList. */}
+      currentlyVisibleState = <TicketList ticketList = {this.state.mainTicketList} onTicketSelection = {this.handleChangingSelectedTicket} />;
+      // Because a user will actually be clicking on the ticket in the Ticket component, we will need to pass our new handleChangingSelectedTicket method as a prop.
       buttonText = "Add Ticket";
     }
     return(
