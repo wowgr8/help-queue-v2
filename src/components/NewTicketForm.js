@@ -45,3 +45,6 @@ NewTicketForm.propTypes = {
 };
 
 export default NewTicketForm;
+
+
+//When should we try to make reusuable components? In general, we should aim to reuse code whenever we are using it across multiple components. Forms are a common example but there are others, too, such as different kinds of welcome content, more complex headers, and so on. If there are small variations in the code like in the example above, we can use props to handle those differences.
