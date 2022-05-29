@@ -11,7 +11,8 @@ function TicketDetail(props){
       <h1>Ticket Detail</h1>
       <h3>{ticket.location} - {ticket.names}</h3>
       <p><em>{ticket.issue}</em></p>
-      <button onClick={()=> onClickingDelete(ticket.id) }>Close Ticket</button> { /* new code. First, we add a button with an onClick handler. When the button is clicked, onClickingDelete(ticket.id) will be executed. Once again, we need to use () => in our JSX curly braces because our function has parens with an argument.  */ }
+      <button onClick={ props.onClickingEdit }>Update Ticket</button> { /* new code. add an "Update" button to our TicketDetail component. When a user clicks this button, the edit form will show.*/ }
+      <button onClick={()=> onClickingDelete(ticket.id) }>Close Ticket</button> { /* First, we add a button with an onClick handler. When the button is clicked, onClickingDelete(ticket.id) will be executed. Once again, we need to use () => in our JSX curly braces because our function has parens with an argument.  */ }
       <hr/>
     </React.Fragment>
   );
@@ -20,7 +21,8 @@ function TicketDetail(props){
 //We also specify that ticket will have a PropType of object.
 TicketDetail.propTypes = {
   ticket: PropTypes.object,
-  onClickingDelete: PropTypes.func // new code - Finally, we need to add a PropType for onClickingDelete.
+  onClickingDelete: PropTypes.func,
+  onClickingEdit: PropTypes.func // new code
 };
 
 export default TicketDetail;
