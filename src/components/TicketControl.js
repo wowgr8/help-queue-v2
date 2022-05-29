@@ -46,6 +46,20 @@ class TicketControl extends React.Component {
     this.setState({selectedTicket: selectedTicket});
   }
 
+// add delete ticket functionality by writing a handleDeletingTicket method in TicketControl. This method will mutate the state of the mainTicketList. we passed this method down as a prop to TicketDetail. We will call this prop onClickingDelete. Add a button to TicketDetail with an onClick event handler that will trigger onClickingDelete. then  add a PropType for onClickingDelete.
+  //handleDeletingTicket will take an id as a parameter.
+  //We will use the filter() method again. This time, though, we want the newMainTicketList to filter everything that doesn't have the ticket ID that will be passed into the method. In other words, we are filtering out the ticket that has the specified ID because we want it to be deleted from the list.
+  //Next, we need to set the state of the mainTicketList to be equal to our filtered newMainTicketList.
+  //Finally, we will also need to set selectedTicket back to null. That way, once a ticket is closed, TicketControl will ensure that the TicketList component is showing.
+  handleDeletingTicket = (id) => {
+    const newMainTicketList = this.state.mainTicketList.filter(ticket => ticket.id !== id);
+    this.setState({
+      mainTicketList: newMainTicketList,
+      selectedTicket: null
+    });
+  }
+  
+
 
   render(){
     {/* we create a variable called currentlyVisibleState and set it to null because we haven't determined which component should be rendered yet. */}
