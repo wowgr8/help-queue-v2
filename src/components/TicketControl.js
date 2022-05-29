@@ -28,6 +28,15 @@ class TicketControl extends React.Component {
                   formVisibleOnPage: false});
   }
 
+  //We will use filter() (which is perfect for functional programming) to filter our mainTicketList down to tickets where ticket.id equals the id passed into our method. Because we are using UUIDs now, we know that only one ticket will ever have a matching id.
+  //Because filter() returns an array, we need to specify that we want the first (and only element) in that array. We use bracket notation to do that.
+  //Finally, we use the setState method to mutate the state of the selectedTicket state slice.
+  //Our method isn't connected to our user interface yet 
+  handleChangingSelectedTicket = (id) => {
+    const selectedTicket = this.state.mainTicketList.filter(ticket => ticket.id === id)[0];
+    this.setState({selectedTicket: selectedTicket});
+  }
+
 
   render(){
     {/* we create a variable called currentlyVisibleState and set it to null because we haven't determined which component should be rendered yet. */}
