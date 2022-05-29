@@ -9,7 +9,8 @@ class TicketControl extends React.Component {
     this.state = {
       formVisibleOnPage: false,
       // we're initializing mainTicketList as an empty array. We're doing this because we don't want this application to start with fake tickets. The queue should be empty until we start adding tickets via our form.
-      mainTicketList: []
+      mainTicketList: [],
+      selectedState: null
     };
   }
 
