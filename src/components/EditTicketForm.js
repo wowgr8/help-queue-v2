@@ -3,9 +3,6 @@ import ReusableForm from "./ReusableForm";
 import PropTypes from "prop-types";
 
 
-
-// Lastly, we'll add a function called handleEditTicketFormSubmission that captures form values and triggers the handleEditingTicketInList method in TicketControl. We also need to update our JSX so the event handler in our form refers to our new handleEditTicketFormSubmission function.
-
 function EditTicketForm(props){
   const { ticket } = props;
 
@@ -17,7 +14,7 @@ function EditTicketForm(props){
   return (
     <React.Fragment>
       <ReusableForm 
-        formSubmissionHandler={handleEditTicketFormSubmission} /* new code */ 
+        formSubmissionHandler={handleEditTicketFormSubmission}
         buttonText="Update Ticket" />
     </React.Fragment>
   );
