@@ -1,11 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-
 function Ticket(props){
   return (
     <React.Fragment>
-      <div onClick = {() => props.whenTicketClicked(props.id)}> 
+      <div onClick = {() => props.whenTicketClicked(props.id)}>
         <h3>{props.location} - {props.names}</h3>
         <p><em>{props.issue}</em></p>
         <hr/>
@@ -19,7 +18,7 @@ Ticket.propTypes = {
   location: PropTypes.string.isRequired,
   issue: PropTypes.string,
   id: PropTypes.string,
-  whenTicketClicked: PropTypes.func 
+  whenTicketClicked: PropTypes.func
 };
 
 export default Ticket;
