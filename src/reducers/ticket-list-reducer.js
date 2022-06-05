@@ -3,5 +3,6 @@
 // our function has two parameters. The first is the state that will need to be changed while the second is the action that will be applied to that state.
 // Our first parameter has a default value. This is an ES6 feature. We can pass default arguments as parameters to functions. That way, if an argument isn't passed into the parameter when the function is called, the function can just use the default.
 export default (state = {}, action) => {
-  // first test failed as expected because our reducer isn't returning anything yet!
+  // Now fist test will pass.
+  return state;
 };
