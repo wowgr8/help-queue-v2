@@ -54,5 +54,4 @@ describe('ticketListReducer', () => {
       }
     });
   });
-
 });
