@@ -118,7 +118,19 @@ class TicketControl extends React.Component {
   }
 }
 
-TicketControl = connect()(TicketControl);
+// The mapStateToProps function takes a state slice from the store and then maps it to a prop in the component.
+const mapStateToProps = state => {
+  return {
+    // Key-value pairs of state to be mapped from Redux to React component go here.
+    // The key-value pairs determine the state slices that should be mapped to the component's props. In our case, we want mainTicketList from the store to be mapped to TicketControl's props.
+    mainTicketList: state
+  }
+}
+
+// Note: we are now passing mapStateToProps into the connect() function.
+// Then we need to pass our newly-defined mapStateToProps function into the connect() function:
+TicketControl = connect(mapStateToProps)(TicketControl);
+// This ensures the TicketControl component has the mapStateToProps functionality when connect() redefines the component.
 
 export default TicketControl;
 
