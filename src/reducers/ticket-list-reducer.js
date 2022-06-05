@@ -22,3 +22,6 @@ export default (state = {}, action) => {
     return state;
   }
 };
+
+
+// Note: We've successfully created a reducer that will take actions to add, update, and delete tickets - all the CRUD functionality we will need for our help queue's ticket list. Once again, note that all reducers must be pure functions and we aren't actually adding, updating or removing tickets from anywhere yet. The Redux store will take care of that.
