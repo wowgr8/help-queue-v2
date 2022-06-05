@@ -21,7 +21,7 @@ class TicketControl extends React.Component {
 
   handleDeletingTicket = (id) => {
     const { dispatch } = this.props;           // we deconstruct this.props to get the dispatch function.
-    const action = {                              //Note: We did not deconstruct newTicket object like in handleAddingNewTicketToList method because deleting a ticket only needs an id in addition to the action's type
+    const action = {                              //Note: We did not deconstruct newTicket object like in handleAddingNewTicketToList & handleEditingTicketInList methods because deleting a ticket only needs an id in addition to the action's type
       type: 'DELETE_TICKET',                   // Next, we define the action itself.
       id: id
     }
@@ -34,12 +34,19 @@ class TicketControl extends React.Component {
     this.setState({editing: true});
   }
 
-  handleEditingTicketInList = (ticketToEdit) => {
-    const editedMainTicketList = this.state.mainTicketList
-      .filter(ticket => ticket.id !== this.state.selectedTicket.id)
-      .concat(ticketToEdit);
+  handleEditingTicketInList = (ticketToEdit) => {     // Did the same here as handleAddingNewTicketToList
+    // Note: We use the ADD_TICKET action to edit our ticket as well. How can our ADD_TICKET action do this? Well, the only difference between when we are adding and editing a ticket is the id property. If it's a new id, a new ticket will be added to the store. If it's an id that already exists, the existing ticket will be replaced. At this point, it might be more accurate to name the action ADD_OR_UPDATE_TICKET, but we will keep the action name the same for consistency.
+    const { dispatch } = this.props;
+    const { id, names, location, issue } = ticketToEdit;
+    const action = {
+      type: 'ADD_TICKET',
+      id: id,
+      names: names,
+      location: location,
+      issue: issue,
+    }
+    dispatch(action);
     this.setState({
-        mainTicketList: editedMainTicketList,
         editing: false,
         selectedTicket: null
       });
