@@ -26,3 +26,5 @@ export default (state = {}, action) => {
     return state;
   }
 };
+
+// Note: ote that our ADD_TICKET action actually already provides update functionality. This is a basic fact of key-value pairs in an object. If we add a ticket with a key that already exists in our ticket list, the old values associated with the key will be replaced with the new values.
