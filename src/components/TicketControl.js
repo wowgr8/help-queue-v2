@@ -4,7 +4,7 @@ import TicketList from './TicketList';
 import TicketDetail from './TicketDetail';
 import EditTicketForm from './EditTicketForm';
 import { connect } from 'react-redux';
-
+import PropTypes from "prop-types";
 
 
 
@@ -117,6 +117,11 @@ class TicketControl extends React.Component {
     );
   }
 }
+
+// We are mapping state from the Redux store to our component's props. That means we need to add prop types to TicketControl
+TicketControl.propTypes = {
+  mainTicketList: PropTypes.object
+};
 
 // The mapStateToProps function takes a state slice from the store and then maps it to a prop in the component.
 const mapStateToProps = state => {
