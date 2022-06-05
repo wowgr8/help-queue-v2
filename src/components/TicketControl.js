@@ -20,11 +20,13 @@ class TicketControl extends React.Component {
   }
 
   handleDeletingTicket = (id) => {
-    const newMainTicketList = this.state.mainTicketList.filter(ticket => ticket.id !== id);
-    this.setState({
-      mainTicketList: newMainTicketList,
-      selectedTicket: null
-    });
+    const { dispatch } = this.props;           // we deconstruct this.props to get the dispatch function.
+    const action = {                              //Note: We did not deconstruct newTicket object like in handleAddingNewTicketToList method because deleting a ticket only needs an id in addition to the action's type
+      type: 'DELETE_TICKET',                   // Next, we define the action itself.
+      id: id
+    }
+    dispatch(action);                          // Once the action is defined, we can dispatch() it.
+    this.setState({ selectedTicket: null });
   }
 
   handleEditClick = () => {
