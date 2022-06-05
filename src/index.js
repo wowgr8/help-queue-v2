@@ -5,6 +5,8 @@ import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 import {createStore} from 'redux';
 import reducer from './reducers/ticket-list-reducer';
+import {Provider} from 'react-redux';
+// the <Provider> component will give all of its child components access to the connect() function, which is needed to connect to the Redux store.
 const store = createStore(reducer);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
