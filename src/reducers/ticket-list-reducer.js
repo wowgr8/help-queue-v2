@@ -1,15 +1,3 @@
-// Now we're ready to add logic to the reducer to pass our new test. Ultimately, a reducer is just a pure function that contains a conditional. What the reducer does is dependent on the action passed in as an argument.
-// We'll use a switch case to do this. A switch case is really just simplified syntax for writing a conditional statement.
-
-// We use object destructuring to destructure the other properties from the action object into the variables names, location and issue.
-// Next, we state that our switch will be based on the action.type. Because the action parameter takes an object, the reducer needs to look at the action's type property to determine the action it should take.
-// As always, we don't want to mutate objects in pure functions. Instead, we use Object.assign() to clone the state object.
-// Object.assign() must take three arguments for this to work:
-  // - The first argument must be an empty object {}. Otherwise, Object.assign() will directly mutate the state we pass in instead of making a clone of it first. We don't want to do that!
-  // - The second argument is the object that will be cloned. In the reducer action below, it's the ticket list state we pass into our function.
-  // - The third argument is the change that should be made to our new copy. This will always be the new ticket that should be added to our ticket list state.
-// Object.assign() creates a new key-value pair where the key is the ticket's id and the value is an object with all of the ticket's properties.
-// We return the value from Object.assign(). Our reducer hasn't altered anything. Instead, it made a copy of the state that was passed in as argument, altered the copy, and then returned the altered copy so it can be used elsewhere in our code.
 export default (state = {}, action) => {
   const { names, location, issue, id } = action;
   switch (action.type) {
@@ -22,9 +10,15 @@ export default (state = {}, action) => {
         id: id
       }
     });
+
+  // You may wonder why we are storing objects within objects in this way now - instead of continuing to use an array. Either will work fine for our use case. However, an object full of key-value pairs is much more similar to a database than an array. That's because both a database and an object have unique keys (as opposed to an array's index, which can change as values are added and removed).
+  // Start by making a copy of the state - then we use the delete function to remove the key-value pair that corresponds to the action. We aren't being fully "pure" here - delete directly alters the object it's called on. However, at the very least, we are making a copy of the original object and altering that one instead of altering the original itself.
+  // Note: Why not do this in a purer way? Well, JavaScript doesn't offer an approach that's both native and functional. There are functional JavaScript libraries that will handle this - for example, the Underscore's .omit() function does the trick - but we will keep things simple here.
+  case 'DELETE_TICKET':
+    let newState = { ...state };
+    delete newState[id];
+    return newState; 
   default:
     return state;
   }
 };
-
-// Note: ote that our ADD_TICKET action actually already provides update functionality. This is a basic fact of key-value pairs in an object. If we add a ticket with a key that already exists in our ticket list, the old values associated with the key will be replaced with the new values.
