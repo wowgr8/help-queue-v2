@@ -4,6 +4,7 @@ import formVisibleReducer from '../../reducers/form-visible-reducer';
 import ticketListReducer from '../../reducers/ticket-list-reducer';
 
 // A smoke test is just a simple test to ensure the basic functionality works. It isn't comprehensive testing, but it will get the job done.
+// TO TEST THAT OUR ROOT REDUCER IS ACTUALLY CONNECTED TO OUR OTHER REDUCERS
 let store = createStore(rootReducer);
 
 describe("rootReducer", () => {
