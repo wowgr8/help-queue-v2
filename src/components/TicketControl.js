@@ -126,7 +126,8 @@ class TicketControl extends React.Component {
 
 // We are mapping state from the Redux store to our component's props. That means we need to add prop types to TicketControl
 TicketControl.propTypes = {
-  mainTicketList: PropTypes.object
+  mainTicketList: PropTypes.object,
+  formVisibleOnPage: PropTypes.bool
 };
 
 // The mapStateToProps function takes a state slice from the store and then maps it to a prop in the component.
@@ -134,7 +135,8 @@ const mapStateToProps = state => {
   return {
     // Key-value pairs of state to be mapped from Redux to React component go here.
     // The key-value pairs determine the state slices that should be mapped to the component's props. In our case, we want mainTicketList from the store to be mapped to TicketControl's props.
-    mainTicketList: state
+    mainTicketList: state.mainTicketList,
+    formVisibleOnPage: state.formVisibleOnPage
   }
 }
 
