@@ -19,4 +19,19 @@ describe('help queue actions', () => {
       type: 'TOGGLE_FORM'
     });
   });
+
+  //  Finally, let's add the test for our 'ADD_TICKET' action:
+  it('addTicket should create ADD_TICKET action', () => {
+    expect(actions.addTicket({names: 'Jo and Jasmine', location: '3E', issue: 'Redux not working!', id: 1})).toEqual({
+      type: 'ADD_TICKET',
+      names: 'Jo and Jasmine',
+      location: '3E',
+      issue: 'Redux not working!',
+      id: 1
+    });
+  });
+
 });
+
+
+// It may not seem like much reduction in code but it will be easier to call toggleForm() in our application instead of { type: 'TOGGLE_FORM' }.
