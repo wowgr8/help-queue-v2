@@ -11,4 +11,12 @@ describe('help queue actions', () => {
       id: 1
     });
   });
+
+
+  // Next, we'll do a test for our 'TOGGLE_FORM' action creator:
+  it('toggleForm should create TOGGLE_FORM action', () => {
+    expect(actions.toggleForm()).toEqual({
+      type: 'TOGGLE_FORM'
+    });
+  });
 });
