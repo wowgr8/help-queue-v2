@@ -1,4 +1,5 @@
 import ticketListReducer from '../../reducers/ticket-list-reducer';
+import Moment from 'moment';
 
 
 describe('ticketListReducer', () => {
@@ -29,22 +30,25 @@ describe('ticketListReducer', () => {
     expect(ticketListReducer({}, {type: null})).toEqual({});
   })
   
-  test('Should successfully add new ticket data to mainTicketList', () => {
-    const { names, location, issue, id } = ticketData;
+  test('Should successfully add a ticket to the ticket list that includes Moment-formatted wait times', () => {
+    const { names, location, issue, timeOpen, id } = ticketData;
     action = {
       type: 'ADD_TICKET',
       names: names,
       location: location,
       issue: issue,
-      id: id
+      timeOpen: timeOpen,
+      id: id,
+      formattedWaitTime: new Moment().fromNow(true)
     };
-
     expect(ticketListReducer({}, action)).toEqual({
       [id] : {
         names: names,
         location: location,
         issue: issue,
-        id: id
+        timeOpen: timeOpen,
+        id: id,
+        formattedWaitTime: 'a few seconds'
       }
     });
   });
