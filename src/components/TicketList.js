@@ -7,14 +7,15 @@ function TicketList(props){
   return (
     <React.Fragment>
       <hr/>
-      {/* We now need to map over the values of an object, not an array. */}
-      {/* we iterate over the values of the ticketList. We do this with the Object.values() method, which grabs all the values from the object. Once we have the values, we can map over them. */}
+      {/* The Ticket.js component needs to have access to the formattedWaitTime property. In order to pass these props to Ticket.js, though, we first need to pass them to TicketList.js, which is the direct parent of Ticket.js and the child of TicketControl.js */}
       {Object.values(props.ticketList).map((ticket) =>
         <Ticket 
           whenTicketClicked = { props.onTicketSelection }
           names={ticket.names}
           location={ticket.location}
           issue={ticket.issue}
+          //* We just add formattedWaitTime as a prop to pass down to Ticket.js. We don't need to pass timeOpen as a prop because we won't be displaying it in Ticket.js. We'll only be showing the formattedWaitTime.
+          formattedWaitTime={ticket.formattedWaitTime}
           id={ticket.id}
           key={ticket.id}/>
       )}
