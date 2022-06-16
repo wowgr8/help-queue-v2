@@ -1,5 +1,6 @@
 import * as actions from './../../actions';
 // Note that we will be importing all of our action creators as actions. As expected, this test should fail because we haven't written any actions yet.
+import * as c from './../actions/ActionTypes';
 
 
 // You may be wondering why we aren't creating a ticket to be deleted. Well, we've already tested that the 'DELETE_TICKET' action properly deletes tickets. 
@@ -22,11 +23,13 @@ describe('help queue actions', () => {
 
   //  Finally, let's add the test for our 'ADD_TICKET' action:
   it('addTicket should create ADD_TICKET action', () => {
-    expect(actions.addTicket({names: 'Jo and Jasmine', location: '3E', issue: 'Redux not working!', id: 1})).toEqual({
-      type: 'ADD_TICKET',
+    expect(actions.addTicket({names: 'Jo and Jasmine', location: '3E', issue: 'Redux not working!', timeOpen: 0, formattedWaitTime: "A few seconds", id: 1})).toEqual({
+      type: c.ADD_TICKET,
       names: 'Jo and Jasmine',
       location: '3E',
       issue: 'Redux not working!',
+      timeOpen: 0,
+      formattedWaitTime: "A few seconds",
       id: 1
     });
   });
