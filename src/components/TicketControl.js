@@ -17,7 +17,6 @@ class TicketControl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // formVisibleOnPage: false,   
       selectedTicket: null,
       editing: false
     };
@@ -26,7 +25,7 @@ class TicketControl extends React.Component {
   componentDidMount() {
     this.waitTimeUpdateTimer = setInterval(() =>
       this.updateTicketElapsedWaitTime(),
-    1000
+    60000 // AKA every minute
     );
   }
 
@@ -39,8 +38,16 @@ class TicketControl extends React.Component {
     clearInterval(this.waitTimeUpdateTimer);
   }
 
+  //We start by deconstructing the dispatch function from this.props.
+  //We iterate over the values in the mainTicketList. For each ticket, we determine the formattedWaitTime using the fromNow() method from Moment.js. You may wonder how we're able to use this method without importing Moment.js - we instantiated the Moment object in another component and the timeOpen property already has access to the fromNow() method. Finally, we create and dispatch an action to update the time for a ticket.
+  //Note that we use forEach(). Technically, we could use map() and it would work. However, this function only has side effects (updating the store) and map() is supposed to return something without side effects. For that reason, forEach() communicates our intentions here.
   updateTicketElapsedWaitTime = () => {
-    console.log("tick");
+    const { dispatch } = this.props;
+    Object.values(this.props.mainTicketList).forEach(ticket => {
+      const newFormattedWaitTime = ticket.timeOpen.fromNow(true);
+      const action = a.updateTime(ticket.id, newFormattedWaitTime);
+      dispatch(action);
+    });
   }
 
   handleDeletingTicket = (id) => {
