@@ -19,3 +19,12 @@ export const addTicket = (ticket) => {
     id: id
   }
 }
+
+export const updateTime = (id, formattedWaitTime) => ({
+  type: 'UPDATE_TIME',
+  id: id,
+  formattedWaitTime: formattedWaitTime
+});
+
+
+// Actions are simply functions that return objects.
