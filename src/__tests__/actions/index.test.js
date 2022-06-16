@@ -31,6 +31,16 @@ describe('help queue actions', () => {
     });
   });
 
+  //The updateTime() action creator has two parameters. The first is a ticket's id while the second is the formatted wait time that should be passed into that ticket. This should be equivalent to the UPDATE_TIME action type, which takes in properties for an id and a formattedWaitTime.
+  it('updateTime should create UPDATE_TIME action', () => {
+    expect(actions.updateTime(1, "A few seconds")).toEqual({
+      type: 'UPDATE_TIME',
+      id: 1,
+      formattedWaitTime: "A few seconds"
+    });
+  });
+
+
 });
 
 
