@@ -35,7 +35,7 @@ root.render(
   </Provider>,
 );
 
-
+// NEW NOTE: Since succesful compiling - the bottom comment does not bundle properly. Ignore for now/soon to be deleted comment and note.
 // If there are errors at the end of lesson replace lines 29-36 with:
 // ReactDOM.render(
 //   <Provider store={store}>
