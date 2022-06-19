@@ -17,12 +17,12 @@ function NewTicketForm(props){
     event.preventDefault();
     props.onNewTicketCreation(); // We will still need our onNewTicketCreation() method to toggle between components - but it will no longer take an argument because it no longer handles creating a ticket.
     // Here's how we will actually add a ticket to Firestore.
-    return firestore.collection('tickets').add(
-      {
-        names: event.target.names.value,
-        location: event.target.location.value,
+    return firestore.collection('tickets').add( // We need to specify which collection we will add a ticket to. Since the collection will hold tickets, we'll call it tickets. A collection is loosely equivalent to an SQL table 
+      {                                         // If the collection doesn't exist, Firestore will add it. If it does, Firestore will add the ticket to the existing collection.
+        names: event.target.names.value,        // add() is the Firestore method used to add a record to the database. We specify the values we want to add.
+        location: event.target.location.value, 
         issue: event.target.issue.value,
-        timeOpen: firestore.FieldValue.serverTimestamp()
+        timeOpen: firestore.FieldValue.serverTimestamp() // Finally, we specify that timeOpen should now be equivalent to firestore.FieldValue.serverTimestamp() instead of a new Moment().
       }
     );
   }
