@@ -78,12 +78,12 @@ class TicketControl extends React.Component {
     this.setState({selectedTicket: selectedTicket});
   }
 
-  handleAddingNewTicketToList = (newTicket) => {
+  handleAddingNewTicketToList = () => {
     const { dispatch } = this.props;                       
-    const action = a.addTicket(newTicket);
-    dispatch(action);    
-    const action2 = a.toggleForm();            
-    dispatch(action2);
+    // const action = a.addTicket(newTicket);
+    // dispatch(action);    
+    const action = a.toggleForm();            
+    dispatch(action);
   }
 
   handleClick = () => {
