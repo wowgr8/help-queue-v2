@@ -22,17 +22,17 @@ describe('help queue actions', () => {
   });
 
   //  Finally, let's add the test for our 'ADD_TICKET' action:
-  it('addTicket should create ADD_TICKET action', () => {
-    expect(actions.addTicket({names: 'Jo and Jasmine', location: '3E', issue: 'Redux not working!', timeOpen: 0, formattedWaitTime: "A few seconds", id: 1})).toEqual({
-      type: 'ADD_TICKET',
-      names: 'Jo and Jasmine',
-      location: '3E',
-      issue: 'Redux not working!',
-      timeOpen: 0,
-      formattedWaitTime: "A few seconds",
-      id: 1
-    });
-  });
+  // it('addTicket should create ADD_TICKET action', () => {
+  //   expect(actions.addTicket({names: 'Jo and Jasmine', location: '3E', issue: 'Redux not working!', timeOpen: 0, formattedWaitTime: "A few seconds", id: 1})).toEqual({
+  //     type: 'ADD_TICKET',
+  //     names: 'Jo and Jasmine',
+  //     location: '3E',
+  //     issue: 'Redux not working!',
+  //     timeOpen: 0,
+  //     formattedWaitTime: "A few seconds",
+  //     id: 1
+  //   });
+  // });
 
   //The updateTime() action creator has two parameters. The first is a ticket's id while the second is the formatted wait time that should be passed into that ticket. This should be equivalent to the UPDATE_TIME action type, which takes in properties for an id and a formattedWaitTime.
   it('updateTime should create UPDATE_TIME action', () => {
