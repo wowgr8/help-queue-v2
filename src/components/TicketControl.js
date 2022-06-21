@@ -62,16 +62,16 @@ class TicketControl extends React.Component {
     this.setState({editing: true});
   }
 
-  handleEditingTicketInList = (ticketToEdit) => {     
+  // handleEditingTicketInList = (ticketToEdit) => {     
     
-    const { dispatch } = this.props;
-    const action = a.addTicket(ticketToEdit);
-    dispatch(action);
-    this.setState({
-        editing: false,
-        selectedTicket: null
-      });
-  }
+  //   const { dispatch } = this.props;
+  //   const action = a.addTicket(ticketToEdit);
+  //   dispatch(action);
+  //   this.setState({
+  //       editing: false,
+  //       selectedTicket: null
+  //     });
+  // }
 
   handleChangingSelectedTicket = (id) => {
     const selectedTicket = this.props.mainTicketList[id];
