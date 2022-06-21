@@ -35,17 +35,17 @@ describe("rootReducer", () => {
 
   // We'll do one more pair of tests. These tests will ensure that when we pass actions into our combined reducers, the root reducer reflects those changes.
   // Note: In both of these tests, we dispatch an action. We then expect our root reducer to properly handle those actions by passing them into our individual reducers. The store's state slice should be updated accordingly - and should be equal to the return result of the individual reducer that handled the action.
-  test('Check that ADD_TICKET action works for ticketListReducer and root reducer', () => {
-    const action = {
-      type: 'ADD_TICKET',
-      names: 'Ryan & Aimen',
-      location: '4b',
-      issue: 'Redux action is not working correctly.',
-      id: 1
-    }
-    store.dispatch(action);
-    expect(store.getState().mainTicketList).toEqual(ticketListReducer(undefined, action));
-  });
+  // test('Check that ADD_TICKET action works for ticketListReducer and root reducer', () => {
+  //   const action = {
+  //     type: 'ADD_TICKET',
+  //     names: 'Ryan & Aimen',
+  //     location: '4b',
+  //     issue: 'Redux action is not working correctly.',
+  //     id: 1
+  //   }
+  //   store.dispatch(action);
+  //   expect(store.getState().mainTicketList).toEqual(ticketListReducer(undefined, action));
+  // });
   
   test('Check that TOGGLE_FORM action works for formVisibleReducer and root reducer', () => {
     const action = {
