@@ -37,6 +37,7 @@ class TicketControl extends React.Component {
     clearInterval(this.waitTimeUpdateTimer);
   }
 
+  // This whole method can probably be deleted or refactored to exclude mainTicketList -it's no longer handled by redux store, but from firestore instead.
   updateTicketElapsedWaitTime = () => {
     const { dispatch } = this.props;
     Object.values(this.props.mainTicketList).forEach(ticket => {
@@ -46,10 +47,11 @@ class TicketControl extends React.Component {
     });
   }
 
+  //We access Firestore via this.props.firestore. Then we call the delete() method. Just as we do for finding or updating a specific ticket, we pass in an object with two properties:
+  //1. A key-value pair with collection as the key and the collection the document belongs to as the value.
+  //2. A key-value pair with doc as the property and the id of the document we want to delete as the value.
   handleDeletingTicket = (id) => {
-    const { dispatch } = this.props;          
-    const action = a.deleteTicket(id);
-    dispatch(action);                          
+    this.props.firestore.delete({collection: "tickets", doc: id});
     this.setState({ selectedTicket: null });
   }
 
@@ -121,7 +123,7 @@ class TicketControl extends React.Component {
       buttonText = "Return to Ticket List";
 
     } else {                                       
-      currentlyVisibleState = <TicketList ticketList={this.props.mainTicketList} onTicketSelection={this.handleChangingSelectedTicket}/>;
+      currentlyVisibleState = <TicketList  onTicketSelection={this.handleChangingSelectedTicket}/>; // removed ticketList={this.props.mainTicketList} - no longer handled by redux store, but from firestore instead.
       buttonText = "Add Ticket";
     };
 
@@ -135,7 +137,7 @@ class TicketControl extends React.Component {
 }
 
 TicketControl.propTypes = {
-  mainTicketList: PropTypes.object,
+  // mainTicketList: PropTypes.object,  - no longer handled by redux store, but from firestore instead.
   formVisibleOnPage: PropTypes.bool
 };
 
