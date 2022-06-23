@@ -6,10 +6,9 @@ import EditTicketForm from './EditTicketForm';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import * as a from './../actions';
-
-
-// It should be clear where we will need to dispatch Redux actions - the exact same place where we previously used setState() to change our form's visibility. When refactoring an application to use Redux instead of React for state, this can be a very helpful way to see where the refactor needs to happen. We don't necessarily need to create new methods in our components. We just need to rewire the relevant methods to use Redux instead of React for state.
-
+//withFirestore() is a wrapper method much like the React Redux connect() method. To use it, we need to wrap this method around the TicketControl component in the final line of code in TicketControl.js (export default line)
+//withFirestore() adds Firestore to a component's props, allowing us to use it for any kind of requests, not just get(). We could use it to update or delete tickets, for instance. - WIP
+import { withFirestore } from 'react-redux-firebase';
 
 
 class TicketControl extends React.Component {
@@ -38,9 +37,6 @@ class TicketControl extends React.Component {
     clearInterval(this.waitTimeUpdateTimer);
   }
 
-  //We start by deconstructing the dispatch function from this.props.
-  //We iterate over the values in the mainTicketList. For each ticket, we determine the formattedWaitTime using the fromNow() method from Moment.js. You may wonder how we're able to use this method without importing Moment.js - we instantiated the Moment object in another component and the timeOpen property already has access to the fromNow() method. Finally, we create and dispatch an action to update the time for a ticket.
-  //Note that we use forEach(). Technically, we could use map() and it would work. However, this function only has side effects (updating the store) and map() is supposed to return something without side effects. For that reason, forEach() communicates our intentions here.
   updateTicketElapsedWaitTime = () => {
     const { dispatch } = this.props;
     Object.values(this.props.mainTicketList).forEach(ticket => {
@@ -73,9 +69,18 @@ class TicketControl extends React.Component {
   //     });
   // }
 
+  //Refactored the method below since we no longer use Redux to access ticket info from mainTicketList.
+
   handleChangingSelectedTicket = (id) => {
-    const selectedTicket = this.props.mainTicketList[id];
-    this.setState({selectedTicket: selectedTicket});
+    this.props.firestore.get({collection: "tickets", doc: id}).then((ticket) => {  // We can use Firestore's get() method to manually retrieve a collection or a subset of a collection. In this case, we want a ticket with a specific id so we do the following
+      const firestoreTicket = {                     //Note that we pass id into a property called doc. Which returns a pending promise. As we know from Intermediate JavaScript, we can chain then() to a promise. But what exactly does our promise return? It doesn't return a ticket. It returns a DocumentSnapshot. A DocumentSnapshot is a Firestore object that contains read-only data of a specified document.
+        names: ticket.get("names"),                 //The id of the document is readily available but we have to use a get() method to grab each specific property.
+        location: ticket.get("location"),           //Note that this is a different get() method than the one we use to actually retrieve the document from Firestore.
+        issue: ticket.get("issue"),                 // That's why we have to do the following .get() to grab a property such as location, issues, names.
+        id: ticket.id
+      }
+      this.setState({selectedTicket: firestoreTicket});
+    })
   }
 
   handleAddingNewTicketToList = () => {
@@ -140,13 +145,15 @@ TicketControl.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    mainTicketList: state.mainTicketList,
+    // mainTicketList: state.mainTicketList,  - no longer handled by redux store, but from firestore instead.
     formVisibleOnPage: state.formVisibleOnPage
   }
 }
 
 TicketControl = connect(mapStateToProps)(TicketControl);
 
-export default TicketControl;
+//Just as we do with the connect() method from React Redux, we're using a higher order component to give our component the functionality it needs (the ability to use Firestore).
+//This makes Firestore available to our application via this.props.firestore.
+export default withFirestore(TicketControl);
 
 
