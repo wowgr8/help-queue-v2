@@ -14,12 +14,12 @@ describe("rootReducer", () => {
     //   mainTicketList: {},
     //   formVisibleOnPage: false
     // }
-  test('Should return default state if no action type is recognized', () => {
-    expect(rootReducer({}, { type: null })).toEqual({
-      mainTicketList: {},
-      formVisibleOnPage: false
-    });
-  });
+  // test('Should return default state if no action type is recognized', () => {
+  //   expect(rootReducer({}, { type: null })).toEqual({
+  //     mainTicketList: {},
+  //     formVisibleOnPage: false
+  //   });
+  // });
 
   // We'll add a few tests to ensure that our root reducer is returning the default state of each individual reducer:
   // Note: These tests are checking the same thing, first with our reducer for the ticket list and then with our reducer for form visibility: does the default state of our combined reducer match the state slice of the root reducer? This is part of the reason we need to instantiate a store - so we can use Redux's getState() method.
