@@ -1,7 +1,7 @@
 import * as c from './../actions/ActionTypes';
 
 export default (state = {}, action) => {
-  const { names, location, issue, id, formattedWaitTime, timeOpen } = action;
+  const { id, formattedWaitTime } = action; // names, location, issue, and timeOpen have been removed along with c.ADD_TICKET case because it's now being handled by firestore.
   switch (action.type) {
     // case c.ADD_TICKET:
     //   return Object.assign({}, state, {
