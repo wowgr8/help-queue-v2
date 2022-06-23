@@ -9,6 +9,9 @@ import {Provider} from 'react-redux';
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import { createFirestoreInstance } from 'redux-firestore';
 import firebase from "./firebase";
+import "firebase/compat/firestore"
+//import { composeWithDevTools } from "redux-devtools-extension"; - from patrick repo, will probably not use here.
+import "firebase/compat/auth"
 
 const store = createStore(rootReducer);
 
@@ -32,7 +35,7 @@ root.render(
     <ReactReduxFirebaseProvider {...rrfProps}>
       <App />
     </ReactReduxFirebaseProvider>
-  </Provider>,
+  </Provider>
 );
 
 // NEW NOTE: Since succesful compiling - the bottom comment does not bundle properly. Ignore for now/soon to be deleted comment and note.
