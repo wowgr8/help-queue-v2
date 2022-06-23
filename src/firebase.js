@@ -1,5 +1,5 @@
 import firebase from 'firebase/compat/app';
-import 'firebase/compat/firestore';
+// import 'firebase/compat/firestore'; // removed because This is being handled in the rrfProps function in index.js
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -12,7 +12,7 @@ const firebaseConfig = {
 }
 
 firebase.initializeApp(firebaseConfig);
-firebase.firestore();
+//firebase.firestore();   This is being handled in the rrfProps function in index.js
 
 export default firebase;
 
