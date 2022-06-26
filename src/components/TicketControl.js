@@ -8,7 +8,8 @@ import PropTypes from "prop-types";
 import * as a from './../actions';
 //withFirestore() is a wrapper method much like the React Redux connect() method. To use it, we need to wrap this method around the TicketControl component in the final line of code in TicketControl.js (export default line)
 //withFirestore() adds Firestore to a component's props, allowing us to use it for any kind of requests, not just get(). We could use it to update or delete tickets, for instance. - WIP
-import { withFirestore } from 'react-redux-firebase';
+//isLoaded has been added to incorporate Authorization
+import { withFirestore, isLoaded } from 'react-redux-firebase';
 
 
 class TicketControl extends React.Component {
@@ -104,35 +105,56 @@ class TicketControl extends React.Component {
   }
 
   render(){
-    let currentlyVisibleState = null;
-    let buttonText = null;
+    const auth = this.props.firebase.auth(); // Remember how the withFirestore() HOC provides access to this.props.firestore? Well, fortunately for us, it also provides access to this.props.firebase. Even though we are using Firestore for our database, authentication itself is provided by Firebase. We can call the auth() method to determine the authentication status of our client.
+    if (!isLoaded(auth)) { //This is why we imported the isLoaded() method from React Redux Firebase. It will check to see if the auth state has been loaded or not. If it hasn't, our help queue will render Loading...
+      return (
+        <React.Fragment>
+          <h1>Loading...</h1>
+        </React.Fragment>
+      )
+    } // Next, we'll check to see if the auth state is loaded and whether auth has a currentUser property that is null
+    // If auth.currentUser is null, we know that the client isn't signed in. We'll return a message that says a user must be signed in to access the queue.
+    // Note: The email property will have a value (because users must sign up with an email and password) but displayName will not. If you use sign in with Google as an option, though, displayName will have a value. This can be helpful if you want to show a user's name or email in the navbar.
+    if ((isLoaded(auth)) && (auth.currentUser == null)) {
+      return (
+        <React.Fragment>
+          <h1>You must be signed in to access the queue.</h1>
+        </React.Fragment>
+      )
+    } // final conditional tests the following:
+    // If auth is loaded and the current user isn't null, we know our client is logged in.
+    if ((isLoaded(auth)) && (auth.currentUser != null)) {
+      let currentlyVisibleState = null;
+      let buttonText = null;
+      // Note: Make sure you route with the buttons we put in the navbar. If you refresh the page or type the URL in manually, the authentication state will not persist in our application. Adding this persistence involves additional legwork which we won't be covering here.
 
-  if (this.state.editing) {
-    currentlyVisibleState = <EditTicketForm ticket = {this.state.selectedTicket} onEditTicket = {this.handleEditingTicketInList} />
-    buttonText = "Return to Ticket List";
+      if (this.state.editing) {
+        currentlyVisibleState = <EditTicketForm ticket = {this.state.selectedTicket} onEditTicket = {this.handleEditingTicketInList} />
+        buttonText = "Return to Ticket List";
 
-  } else if (this.state.selectedTicket != null){
-      currentlyVisibleState = <TicketDetail 
-        ticket = {this.state.selectedTicket} 
-        onClickingDelete = {this.handleDeletingTicket}
-        onClickingEdit = {this.handleEditClick} />
-      buttonText= "Return to Ticket List";
+      } else if (this.state.selectedTicket != null){
+        currentlyVisibleState = <TicketDetail 
+          ticket = {this.state.selectedTicket} 
+          onClickingDelete = {this.handleDeletingTicket}
+          onClickingEdit = {this.handleEditClick} />
+        buttonText= "Return to Ticket List";
 
-    } else if (this.props.formVisibleOnPage) {
-      currentlyVisibleState = <NewTicketForm onNewTicketCreation={this.handleAddingNewTicketToList}/>;
-      buttonText = "Return to Ticket List";
+      } else if (this.props.formVisibleOnPage) {
+        currentlyVisibleState = <NewTicketForm onNewTicketCreation={this.handleAddingNewTicketToList}/>;
+        buttonText = "Return to Ticket List";
 
-    } else {                                       
-      currentlyVisibleState = <TicketList  onTicketSelection={this.handleChangingSelectedTicket}/>; // removed ticketList={this.props.mainTicketList} - no longer handled by redux store, but from firestore instead.
-      buttonText = "Add Ticket";
-    };
+      } else {                                       
+        currentlyVisibleState = <TicketList  onTicketSelection={this.handleChangingSelectedTicket}/>; // removed ticketList={this.props.mainTicketList} - no longer handled by redux store, but from firestore instead.
+        buttonText = "Add Ticket";
+      };
 
-    return (
-      <React.Fragment>
-        {currentlyVisibleState}
-        <button onClick={this.handleClick}>{buttonText}</button>
-      </React.Fragment>
-    );
+      return (
+        <React.Fragment>
+          {currentlyVisibleState}
+          <button onClick={this.handleClick}>{buttonText}</button>
+        </React.Fragment>
+      );
+    }
   }
 }
 
