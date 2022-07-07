@@ -10,7 +10,6 @@ import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import { createFirestoreInstance } from 'redux-firestore';
 import firebase from "./firebase";
 import "firebase/compat/firestore"
-//import { composeWithDevTools } from "redux-devtools-extension"; - from patrick repo, will probably not use here.
 import "firebase/compat/auth"
 
 const store = createStore(rootReducer);
@@ -38,17 +37,5 @@ root.render(
     </ReactReduxFirebaseProvider>
   </Provider>
 );
-
-// NEW NOTE: Since succesful compiling - the bottom comment does not bundle properly. Ignore for now/soon to be deleted comment and note.
-// If there are errors at the end of lesson replace lines 29-36 with:
-// ReactDOM.render(
-//   <Provider store={store}>
-//     <ReactReduxFirebaseProvider {...rrfProps}>
-//       <App />
-//     </ReactReduxFirebaseProvider>
-//   </Provider>,
-//   document.getElementById('root')
-// )
-
 
 reportWebVitals();
