@@ -19,7 +19,6 @@ function NewTicketForm(props){
       }
     );
   }
-
   
   return (
     <React.Fragment>
