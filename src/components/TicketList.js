@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import {useSelector} from 'react-redux';                                               
 import {useFirestoreConnect, isLoaded, isEmpty} from 'react-redux-firebase';            
 
-
 function TicketList(props){
   useFirestoreConnect([
     { collection: "tickets" }
