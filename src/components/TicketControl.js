@@ -131,7 +131,7 @@ class TicketControl extends React.Component {
         currentlyVisibleState = <TicketList  onTicketSelection={this.handleChangingSelectedTicket}/>; // removed ticketList={this.props.mainTicketList} - no longer handled by redux store, but from firestore instead.
         buttonText = "Add Ticket";
       };
-      
+
       return (
         <React.Fragment>
           {currentlyVisibleState}
@@ -155,5 +155,3 @@ const mapStateToProps = state => {
 TicketControl = connect(mapStateToProps)(TicketControl);
 
 export default withFirestore(TicketControl);
-
-
